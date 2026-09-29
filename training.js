@@ -113,7 +113,7 @@ const SUPPORT_MOVES=[
 ];
 function trainingFor(level){const tier=rank(level)-1;return PILLARS.map((pillar,i)=>{
  const moves=TRAINING_MOVES[tier][i];
- const step=(level-1)%10;const dose=(name,position)=>/walk|jog|run|march|rope|hill/i.test(name)?`${8+step}–${12+step} min at a conversational effort`:/hold|hang|stand|balance|plank|brace|sit|support|lever|planche|manna|split|bridge|fold|stretch/i.test(name)?`2 × ${8+step}–${12+step}s controlled`:`2 × ${3+Math.floor(step/3)}–${5+Math.floor(step/3)} controlled reps`;
+ const step=(level-1)%10;const dose=(name)=>{if(/walk|jog|run|march|rope|hill/i.test(name))return `${8+step}–${12+step} min at a conversational effort`;if(!/chair stand/i.test(name)&&/\b(hold|hang|stand|balance|plank|brace|support|lever|planche|manna|split|bridge|fold|stretch)\b/i.test(name))return `2 × ${8+step}–${12+step}s controlled`;return `2 × ${3+Math.floor(step/3)}–${5+Math.floor(step/3)} controlled reps`};
  return {pillar:pillar[2],code:pillar[0],test:stageFor(level,i),options:[
  {id:`${tier}-${i}-0`,name:moves[0][0],how:moves[0][1],dose:dose(moves[0][0],0),kind:'Skill practice'},
  {id:`${tier}-${i}-1`,name:moves[1][0],how:moves[1][1],dose:dose(moves[1][0],1),kind:'Strength builder'},
